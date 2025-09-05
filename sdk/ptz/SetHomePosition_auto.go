@@ -6,10 +6,11 @@ package ptz
 
 import (
 	"context"
+
 	"github.com/juju/errors"
-	"github.com/use-go/onvif"
-	"github.com/use-go/onvif/sdk"
-	"github.com/use-go/onvif/ptz"
+	"github.com/whiteboxsolutions/onvif"
+	"github.com/whiteboxsolutions/onvif/ptz"
+	"github.com/whiteboxsolutions/onvif/sdk"
 )
 
 // Call_SetHomePosition forwards the call to dev.CallMethod() then parses the payload of the reply as a SetHomePositionResponse.

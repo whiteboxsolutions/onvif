@@ -6,10 +6,11 @@ package device
 
 import (
 	"context"
+
 	"github.com/juju/errors"
-	"github.com/use-go/onvif"
-	"github.com/use-go/onvif/sdk"
-	"github.com/use-go/onvif/device"
+	"github.com/whiteboxsolutions/onvif"
+	"github.com/whiteboxsolutions/onvif/device"
+	"github.com/whiteboxsolutions/onvif/sdk"
 )
 
 // Call_DeleteCertificates forwards the call to dev.CallMethod() then parses the payload of the reply as a DeleteCertificatesResponse.
