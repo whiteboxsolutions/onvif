@@ -15,10 +15,10 @@ import (
 
 	"github.com/beevik/etree"
 	"github.com/gin-gonic/gin"
-	"github.com/use-go/onvif"
-	"github.com/use-go/onvif/gosoap"
-	"github.com/use-go/onvif/networking"
-	wsdiscovery "github.com/use-go/onvif/ws-discovery"
+	"github.com/whiteboxsolutions/onvif"
+	"github.com/whiteboxsolutions/onvif/gosoap"
+	"github.com/whiteboxsolutions/onvif/networking"
+	wsdiscovery "github.com/whiteboxsolutions/onvif/ws-discovery"
 )
 
 var (
@@ -64,7 +64,7 @@ func RunApi() {
 
 		interfaceName := context.GetHeader("interface")
 
-		devices, err := wsdiscovery.SendProbe(interfaceName, nil, []string{"dn:NetworkVideoTransmitter"}, map[string]string{"dn": "http://www.onvif.org/ver10/network/wsdl"})
+		devices, err := wsdiscovery.SendProbe(interfaceName, nil, []string{"dn:NetworkVideoTransmitter"}, map[string]string{"dn": "http://www.onvif.org/ver10/network/wsdl"}, time.Second*5)
 		if err != nil {
 			context.String(http.StatusInternalServerError, "error")
 		} else {

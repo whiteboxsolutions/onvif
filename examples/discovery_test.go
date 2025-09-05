@@ -8,11 +8,12 @@ import (
 	"regexp"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/beevik/etree"
-	"github.com/use-go/onvif"
-	"github.com/use-go/onvif/device"
-	discover "github.com/use-go/onvif/ws-discovery"
+	"github.com/whiteboxsolutions/onvif"
+	"github.com/whiteboxsolutions/onvif/device"
+	discover "github.com/whiteboxsolutions/onvif/ws-discovery"
 )
 
 func TestGetAvailableDevicesAtSpecificEthernetInterface(t *testing.T) {
@@ -41,7 +42,7 @@ type Host struct {
 
 func runDiscovery(interfaceName string) {
 	var hosts []*Host
-	devices, err := discover.SendProbe(interfaceName, nil, []string{"dn:NetworkVideoTransmitter"}, map[string]string{"dn": "http://www.onvif.org/ver10/network/wsdl"})
+	devices, err := discover.SendProbe(interfaceName, nil, []string{"dn:NetworkVideoTransmitter"}, map[string]string{"dn": "http://www.onvif.org/ver10/network/wsdl"}, time.Second*5)
 	if err != nil {
 		log.Printf("error %s", err)
 		return

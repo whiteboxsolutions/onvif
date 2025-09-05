@@ -9,12 +9,13 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/beevik/etree"
-	"github.com/use-go/onvif/device"
-	"github.com/use-go/onvif/gosoap"
-	"github.com/use-go/onvif/networking"
-	wsdiscovery "github.com/use-go/onvif/ws-discovery"
+	"github.com/whiteboxsolutions/onvif/device"
+	"github.com/whiteboxsolutions/onvif/gosoap"
+	"github.com/whiteboxsolutions/onvif/networking"
+	wsdiscovery "github.com/whiteboxsolutions/onvif/ws-discovery"
 )
 
 // Xlmns XML Scheam
@@ -114,7 +115,7 @@ func readResponse(resp *http.Response) string {
 // GetAvailableDevicesAtSpecificEthernetInterface ...
 func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string) ([]Device, error) {
 	// Call a ws-discovery Probe Message to Discover NVT type Devices
-	devices, err := wsdiscovery.SendProbe(interfaceName, nil, []string{"dn:" + NVT.String()}, map[string]string{"dn": "http://www.onvif.org/ver10/network/wsdl"})
+	devices, err := wsdiscovery.SendProbe(interfaceName, nil, []string{"dn:" + NVT.String()}, map[string]string{"dn": "http://www.onvif.org/ver10/network/wsdl"}, time.Second*5)
 	if err != nil {
 		return nil, err
 	}
