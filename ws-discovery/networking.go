@@ -21,8 +21,8 @@ import (
 
 const bufSize = 8192
 
-//SendProbe to device
-func SendProbe(interfaceName string, scopes, types []string, namespaces map[string]string) ([]string, error) {
+// SendProbe to device
+func SendProbe(interfaceName string, scopes, types []string, namespaces map[string]string, timeout time.Duration) ([]string, error) {
 	// Creating UUID Version 4
 	uuidV4 := uuid.Must(uuid.NewV4())
 	//fmt.Printf("UUIDv4: %s\n", uuidV4)
@@ -42,10 +42,10 @@ func SendProbe(interfaceName string, scopes, types []string, namespaces map[stri
 	//</Body>
 	//</Envelope>`
 
-	return sendUDPMulticast(probeSOAP.String(), interfaceName)
+	return sendUDPMulticast(probeSOAP.String(), interfaceName, timeout)
 }
 
-func sendUDPMulticast(msg string, interfaceName string) ([]string, error) {
+func sendUDPMulticast(msg string, interfaceName string, timeout time.Duration) ([]string, error) {
 	c, err := net.ListenPacket("udp4", "0.0.0.0:0")
 	if err != nil {
 		return nil, err
@@ -75,7 +75,7 @@ func sendUDPMulticast(msg string, interfaceName string) ([]string, error) {
 		}
 	}
 
-	if err := p.SetReadDeadline(time.Now().Add(time.Second * 1)); err != nil {
+	if err := p.SetReadDeadline(time.Now().Add(timeout)); err != nil {
 		return nil, err
 	}
 
